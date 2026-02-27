@@ -81,5 +81,5 @@ Respostas
 📖 Documentação Swagger
     Após iniciar a aplicação:
     http://localhost:8080/swagger-ui/index.html
-🧪 Executar Testes
+🧪 Executar Teste
     ./gradlew test
