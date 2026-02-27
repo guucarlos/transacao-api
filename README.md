@@ -1,42 +1,85 @@
-Transação API
+🚀 Transação API
+    API REST desenvolvida com Java 21 e Spring Boot para gerenciamento de transações financeiras e cálculo de estatísticas em tempo real.
+    O sistema registra transações e calcula métricas considerando apenas as transações realizadas nos últimos 60 segundos (ou intervalo customizado).
+📌 Funcionalidades
+    Registrar transações
+    Remover todas as transações
+    Calcular estatísticas (count, sum, avg, min, max)
+    Validação de dados
+    Tratamento de exceções
+    Documentação Swagger
+🧰 Tecnologias Utilizadas
+    Java 21
+    Spring Boot
+    Spring Validation
+    Gradle
+    JUnit 5
+    Mockito
+    OpenAPI (Swagger)
+    Docker (opcional)
+🏗️ Arquitetura
+    O projeto segue arquitetura em camadas:
+    Controller → Service → DTO → Exception Handler
+    Controller: Recebe requisições HTTP
+    Service: Contém regras de negócio
+    DTOs: Objetos de transferência de dados
+    Exception Handler: Tratamento centralizado de erros
+⚙️ Como Executar
+    Pré-requisitos
+    Java 21 ou superior
+    Gradle 8 ou superior
+    Git
 
-Este projeto é uma API REST para gerenciar transações e calcular estatísticas das transações realizadas nos últimos 60 segundos. A API foi desenvolvida com Java e Spring Boot.
+Clone o repositório
+    git clone https://github.com/seu-usuario/transacao-api.git
+    cd transacao-api
 
-Variáveis de Ambiente
+Build do projeto
+    ./gradlew clean build
 
-Para rodar esta aplicação, você precisa de:
+Executar aplicação
+    ./gradlew bootRun
 
-Java: JDK 21 ou superior. Maven: Versão 3.8.1 ou superior. Git: Para clonar o repositório. Docker (opcional): Caso queira rodar a aplicação em um container.
+🐳 Executando com Docker
 
-Como Configurar o Projeto
+    docker build -t transacao-api .
 
-Clone o Repositório
+Executar container
+    docker run -p 8080:8080 transacao-api
 
-Compile o Projeto
+Endpoints
+    ➕ Registrar Transação
+    POST /transacao
+    Body (JSON)
+    {
+        "valor": 100.50,
+        "dataHora": "2025-02-18T14:30:00Z"
+    }
+Respostas
+    Status	Descrição
+    201	Criado com sucesso
+    422	Transação inválida
 
-mvn clean install
-Execute o Projeto
-mvn spring-boot:run
-Como Rodar em um Container (Opcional)
-4.1. Crie a Imagem Docker Certifique-se de que o Docker está instalado e execute:
-
-docker build -t api-transacoes
-4.2. Execute o Container
-
-docker run -p 8080:8080 api-transacoes
-Documentação da API
-
-Receber Transações
-
-POST /transacao
-Parâmetro	Tipo	Descrição
-valor	BigDecimal	Obrigatório. O valor da transação
-dataHora	OffsetDateTime	Obrigatório. O horário que a transação ocorreu
-Limpar Transações
-
-DELETE /transacao
-Calcular Estatísticas
-
-GET /estatistica
-Parâmetro	Tipo	Descrição
-intervaloSegundos	integer	Não Obrigatório O padrão default é 60s
+🗑️ Limpar Transações
+    DELETE /transacao
+    Status	Descrição
+    200	Transações removidas com sucesso
+📊 Estatísticas
+    GET /estatistica
+    Query Param (opcional)
+    intervaloSegundos=30
+    Exemplo 
+    GET /estatistica?intervaloSegundos=30
+    Resposta
+    {
+        "count": 5,
+        "sum": 350.00,
+        "avg": 70.00,
+        "min": 10.00,
+        "max": 150.00
+    }
+📖 Documentação Swagger
+    Após iniciar a aplicação:
+    http://localhost:8080/swagger-ui/index.html
+🧪 Executar Testes
+    ./gradlew test
